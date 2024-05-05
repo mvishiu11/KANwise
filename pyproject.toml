@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "kanwise"
+version = "0.1.0"
+description = "KANs implemented in PyTorch with a Keras-like interface"
+authors = ["mvishiu11 (Jakub Muszyński)"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+torch = "^2.3.0"
+numpy = "^1.26.4"
+scipy = "^1.13.0"
+pytest = "^8.2.0"
+
+
+[tool.poetry.group.dev.dependencies]
+sphinx = "^7.3.7"
+sphinx-rtd-theme = "^2.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
