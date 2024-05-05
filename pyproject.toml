@@ -11,6 +11,10 @@ torch = "^2.3.0"
 numpy = "^1.26.4"
 scipy = "^1.13.0"
 pytest = "^8.2.0"
+pandas = "^2.2.2"
+
+[tool.poetry.scripts]
+simple_regression = "examples.simple_regression:main"
 
 
 [tool.poetry.group.dev.dependencies]
