@@ -52,7 +52,7 @@ To run the examples use the provided scripts. For example:
 ```bash
 poetry run simple_regression
 ```
-Replace `simple_regression.py` with the script corresponding to your desired application.
+Replace `simple_regression` with the script corresponding to your desired application as defined in the [examples](#examples) section.
 
 ## Contributing
 Contributions to this project are welcome! Please fork the repository, make your changes, and submit a pull request. For major changes, please open an issue first to discuss what you would like to change.
