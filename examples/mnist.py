@@ -1,7 +1,3 @@
-
-from examples.california_housing import LEARNING_RATE, NUM_EPOCHS
-from kanwise import KAN
-
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -9,6 +5,8 @@ import torchvision
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from tqdm import tqdm
+
+from kanwise import KAN
 
 NUM_EPOCHS = 1
 LEARNING_RATE = 0.001
@@ -24,9 +22,14 @@ trainset = torchvision.datasets.MNIST(
 valset = torchvision.datasets.MNIST(
     root="./data", train=False, download=True, transform=transform
 )
-trainloader = DataLoader(trainset, batch_size=64, shuffle=False)   # Shuffle is False for reproducibility
-trainloader2 = DataLoader(trainset, batch_size=64, shuffle=False)  # Shuffle is False for reproducibility
+trainloader = DataLoader(
+    trainset, batch_size=64, shuffle=False
+)  # Shuffle is False for reproducibility
+trainloader2 = DataLoader(
+    trainset, batch_size=64, shuffle=False
+)  # Shuffle is False for reproducibility
 valloader = DataLoader(valset, batch_size=64, shuffle=False)
+
 
 def train(model, trainloader, optimizer, criterion, scheduler):
     for epoch in range(NUM_EPOCHS):
@@ -40,7 +43,11 @@ def train(model, trainloader, optimizer, criterion, scheduler):
                 loss.backward()
                 optimizer.step()
                 accuracy = (output.argmax(dim=1) == labels.to(device)).float().mean()
-                pbar.set_postfix(loss=loss.item(), accuracy=accuracy.item(), lr=optimizer.param_groups[0]['lr'])
+                pbar.set_postfix(
+                    loss=loss.item(),
+                    accuracy=accuracy.item(),
+                    lr=optimizer.param_groups[0]["lr"],
+                )
 
         model.eval()
         val_loss = 0
@@ -58,9 +65,8 @@ def train(model, trainloader, optimizer, criterion, scheduler):
 
         scheduler.step()
 
-        print(
-            f"Epoch {epoch + 1}, Val Loss: {val_loss}, Val Accuracy: {val_accuracy}"
-        )
+        print(f"Epoch {epoch + 1}, Val Loss: {val_loss}, Val Accuracy: {val_accuracy}")
+
 
 model = KAN([28 * 28, 64, 10])
 model2 = nn.Sequential(
@@ -72,7 +78,9 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 optimizer = optim.AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay=WEIGHT_DECAY)
 scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=GAMMA)
-optimizer2 = optim.AdamW(model2.parameters(), lr=LEARNING_RATE, weight_decay=WEIGHT_DECAY)
+optimizer2 = optim.AdamW(
+    model2.parameters(), lr=LEARNING_RATE, weight_decay=WEIGHT_DECAY
+)
 scheduler2 = optim.lr_scheduler.ExponentialLR(optimizer2, gamma=GAMMA)
 
 
@@ -81,4 +89,3 @@ criterion2 = nn.CrossEntropyLoss()
 
 train(model, trainloader, optimizer, criterion, scheduler)
 train(model2, trainloader2, optimizer2, criterion2, scheduler2)
-

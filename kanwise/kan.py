@@ -1,6 +1,7 @@
+import math
+
 import torch
 import torch.nn.functional as F
-import math
 
 
 class KANLinear(torch.nn.Module):
@@ -54,7 +55,9 @@ class KANLinear(torch.nn.Module):
         self.reset_parameters()
 
     def reset_parameters(self):
-        torch.nn.init.kaiming_uniform_(self.base_weight, a=math.sqrt(5) * self.scale_base)
+        torch.nn.init.kaiming_uniform_(
+            self.base_weight, a=math.sqrt(5) * self.scale_base
+        )
         with torch.no_grad():
             noise = (
                 (
@@ -67,13 +70,15 @@ class KANLinear(torch.nn.Module):
             self.spline_weight.data.copy_(
                 (self.scale_spline if not self.enable_standalone_scale_spline else 1.0)
                 * self.curve2coeff(
-                    self.grid.T[self.spline_order : -self.spline_order],
+                    self.grid.T[self.spline_order : -self.spline_order],  # noqa E203
                     noise,
                 )
             )
             if self.enable_standalone_scale_spline:
                 # torch.nn.init.constant_(self.spline_scaler, self.scale_spline)
-                torch.nn.init.kaiming_uniform_(self.spline_scaler, a=math.sqrt(5) * self.scale_spline)
+                torch.nn.init.kaiming_uniform_(
+                    self.spline_scaler, a=math.sqrt(5) * self.scale_spline
+                )
 
     def b_splines(self, x: torch.Tensor):
         """
@@ -98,8 +103,8 @@ class KANLinear(torch.nn.Module):
                 / (grid[:, k:-1] - grid[:, : -(k + 1)])
                 * bases[:, :, :-1]
             ) + (
-                (grid[:, k + 1 :] - x)
-                / (grid[:, k + 1 :] - grid[:, 1:(-k)])
+                (grid[:, k + 1 :] - x)  # noqa E203
+                / (grid[:, k + 1 :] - grid[:, 1:(-k)])  # noqa E203
                 * bases[:, :, 1:]
             )
 
@@ -161,7 +166,7 @@ class KANLinear(torch.nn.Module):
             self.scaled_spline_weight.view(self.out_features, -1),
         )
         output = base_output + spline_output
-        
+
         output = output.view(*original_shape[:-1], self.out_features)
         return output
 
