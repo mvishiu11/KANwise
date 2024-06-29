@@ -30,14 +30,13 @@ KANs offer a new perspective on neural network design:
 - **Keras-like API**: Provides a familiar and easy-to-use interface for model definition and training, making it accessible to users transitioning from Keras.
 
 ### Architecture
-- **Custom Layer**: `KANLayer`, which supports flexible spline-based activation functions.
-- **Modular Design**: Allows easy integration into existing PyTorch workflows and scalability to different types of neural network architectures.
+- **KANLinear**: A fully connected layer with learnable activation functions.
+- **KAN**: A neural network model composed of KANLinear layers.
 
 ## Examples
 This repository includes several examples demonstrating the practical applications of KANs:
-- **Simple Regression**: Illustrates how KANs can be used for a basic regression problem.
-- **PDE Solving**: Shows the application of KANs to solve partial differential equations, highlighting their potential in scientific computing.
-- **Function Discovery**: Demonstrates the capability of KANs to discover underlying mathematical relationships from data.
+- **California Housing**: Illustrates how KANs can be used for a basic regression problem with a simple dataset.
+- **MNIST Classification**: Demonstrates the use of KANs for image classification on the MNIST dataset.
 
 ## Installation
 To install the necessary dependencies, run:
@@ -48,15 +47,15 @@ poetry install
 Ensure you have Python 3.11+ and Poetry installed on your system.
 
 ## Usage
-To run the examples use the provided scripts. For example:
+To run the examples use poetry with python. For example:
 ```bash
-poetry run simple_regression
+poetry run python examples/mnist.py
 ```
-Replace `simple_regression` with the script corresponding to your desired application as defined in the [examples](#examples) section.
+Replace `mnist` with the script corresponding to your desired application as defined in the [examples](#examples) section.
 
 ## Contributing
 Contributions to this project are welcome! Please fork the repository, make your changes, and submit a pull request. For major changes, please open an issue first to discuss what you would like to change.
 
 ## Acknowledgments
 - Thanks to the authors of the original paper on Kolmogorov–Arnold Networks for inspiring this implementation.
-- Thanks to the PyTorch community for providing an excellent platform for developing such innovative machine learning tools.
+- Thanks also to the authors of [efficient-kan](https://github.com/Blealtan/efficient-kan) for providing a KAN version optimized for efficiency, which served as a reference for this implementation.
