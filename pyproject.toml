@@ -8,13 +8,14 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 torch = "^2.3.0"
+pytest = "^8.2.0"
+tqdm = "^4.66.2"
+torchvision = "^0.18.0"
 numpy = "^1.26.4"
 scipy = "^1.13.0"
-pytest = "^8.2.0"
 pandas = "^2.2.2"
-
-[tool.poetry.scripts]
-simple_regression = "examples.simple_regression:main"
+scikit-learn = "^1.4.2"
+matplotlib = "^3.8.4"
 
 
 [tool.poetry.group.dev.dependencies]
