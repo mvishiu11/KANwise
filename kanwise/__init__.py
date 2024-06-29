@@ -1,4 +1,4 @@
 """Module defining the KAN model and layer.
 """
-from .layers import KANLayer as KANLayer  # noqa F401
-from .models import KANModel as KANModel  # noqa F401
+from .kan import KAN as KAN  # noqa F401
+from .kan import KANLinear as KANLinear  # noqa F401
